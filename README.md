@@ -3,7 +3,8 @@
 > A next-generation web music player with the **Dark Matter** design system.
 > Built on React 18 + Vite + Tailwind + **Jamendo** (Creative Commons catalog).
 
-This repository contains the **MVP** slice of Zenith: layout shell, Home, Library, Discover, Search, detail pages, player bar, and FFT visualizer. See [`ZENITH_APP_SPEC.md`](./ZENITH_APP_SPEC.md) for the full product vision.
+This repository contains the **MVP** slice of Zenith: layout shell, Home, Library, Discover, Search, detail pages, player bar, and FFT visualizer. 
+
 
 ---
 
@@ -96,6 +97,7 @@ Dark Matter colors live in [`src/styles/variables.css`](./src/styles/variables.c
 
 Easing used throughout: `cubic-bezier(0.16, 1, 0.3, 1)` (Tailwind: `ease-zenith`).
 
+<img width="1919" height="883" alt="Ekran görüntüsü 2026-04-21 151954" src="https://github.com/user-attachments/assets/9d566124-2d92-4d1a-a4ec-bd50740df916" />
 ---
 
 *Music from the future, felt in the present.*
