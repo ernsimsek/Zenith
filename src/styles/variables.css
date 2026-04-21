@@ -1,0 +1,76 @@
+:root,
+:root[data-theme='dark-matter'] {
+  /* Backgrounds */
+  --bg-void: #020408;
+  --bg-deep: #080d14;
+  --bg-surface: #0e1520;
+  --bg-elevated: #141e2e;
+
+  /* Accent — Electric Cyan */
+  --accent-primary: #00e5ff;
+  --accent-glow: #00e5ff33;
+  --accent-dim: #0099bb;
+
+  /* Secondary — Violet Pulse */
+  --pulse-primary: #7b2fff;
+  --pulse-glow: #7b2fff44;
+
+  /* Text */
+  --text-primary: #f0f4ff;
+  --text-secondary: #6a7a99;
+  --text-muted: #3a4a5e;
+
+  /* Waveform */
+  --wave-active: #00e5ff;
+  --wave-inactive: #1a2840;
+
+  /* Motion */
+  --ease-zenith: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-micro: 150ms;
+  --dur-transition: 300ms;
+  --dur-page: 600ms;
+}
+
+/* Solar — light */
+:root[data-theme='solar'] {
+  --bg-void: #e8ecf6;
+  --bg-deep: #dce2f0;
+  --bg-surface: #cfd8ec;
+  --bg-elevated: #c2cde3;
+  --accent-primary: #0090a8;
+  --accent-glow: #0090a833;
+  --accent-dim: #007a8f;
+  --pulse-primary: #5b21c4;
+  --pulse-glow: #5b21c444;
+  --text-primary: #0a1020;
+  --text-secondary: #4a5678;
+  --text-muted: #7a869e;
+  --wave-active: #0090a8;
+  --wave-inactive: #b8c4dc;
+  --ease-zenith: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-micro: 150ms;
+  --dur-transition: 300ms;
+  --dur-page: 600ms;
+}
+
+/* Void — OLED black */
+:root[data-theme='void'] {
+  --bg-void: #000000;
+  --bg-deep: #030308;
+  --bg-surface: #06060c;
+  --bg-elevated: #0c0c14;
+  --accent-primary: #00d4ee;
+  --accent-glow: #00d4ee44;
+  --accent-dim: #008899;
+  --pulse-primary: #6d28ff;
+  --pulse-glow: #6d28ff55;
+  --text-primary: #e8ecff;
+  --text-secondary: #6d7a99;
+  --text-muted: #3d4a62;
+  --wave-active: #00d4ee;
+  --wave-inactive: #121820;
+  --ease-zenith: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-micro: 150ms;
+  --dur-transition: 300ms;
+  --dur-page: 600ms;
+}
