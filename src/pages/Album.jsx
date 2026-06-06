@@ -47,7 +47,7 @@ export default function AlbumPage() {
     <PageWrapper>
       <motion.div
         variants={pageItem}
-        className="relative overflow-hidden rounded-2xl border border-white/10 bg-deep/50 p-6 shadow-[0_24px_80px_rgba(0,0,0,0.35)] ring-1 ring-white/5 md:p-8"
+        className="relative overflow-hidden rounded-2xl border border-white/10 bg-deep/50 p-4 shadow-[0_24px_80px_rgba(0,0,0,0.35)] ring-1 ring-white/5 sm:p-6 md:p-8"
       >
         {cover ? (
           <>
@@ -61,7 +61,7 @@ export default function AlbumPage() {
           </>
         ) : null}
         <div className="relative flex flex-col gap-6 md:flex-row md:items-end">
-          <div className="h-48 w-48 shrink-0 overflow-hidden rounded-xl bg-elevated shadow-xl ring-1 ring-white/10 md:h-56 md:w-56">
+          <div className="mx-auto h-40 w-40 shrink-0 overflow-hidden rounded-xl bg-elevated shadow-xl ring-1 ring-white/10 sm:mx-0 sm:h-48 sm:w-48 md:h-56 md:w-56">
             {cover ? (
               <img src={cover} alt="" className="h-full w-full object-cover" />
             ) : (
@@ -106,7 +106,7 @@ export default function AlbumPage() {
                 Play
               </button>
             </div>
-            <div className="grid grid-cols-[32px_40px_1fr_1fr_80px_28px] items-center gap-4 border-b border-white/5 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-faint">
+            <div className="hidden items-center gap-4 border-b border-white/5 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-faint sm:grid sm:grid-cols-[32px_40px_1fr_1fr_56px_28px]">
               <span>#</span>
               <span />
               <span>Title</span>

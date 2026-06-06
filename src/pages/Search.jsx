@@ -221,7 +221,7 @@ export default function SearchPage() {
           <motion.section variants={pageItem} className="mb-12">
             <h3 className="mb-4 font-heading text-lg text-ink">Artists</h3>
             {results.artists.length ? (
-              <div className="scroll-hide -mx-6 flex gap-6 overflow-x-auto px-6 pb-2">
+              <div className="scroll-hide -mx-4 flex gap-6 overflow-x-auto px-4 pb-2 sm:-mx-6 sm:px-6">
                 {results.artists.map((a) => (
                   <Link key={a.id} to={`/artist/${a.id}`} className="shrink-0">
                     <ArtistCard image={a.images?.[0]?.url} name={a.name} />

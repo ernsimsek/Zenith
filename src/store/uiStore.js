@@ -9,6 +9,7 @@ export const useUiStore = create((set) => ({
   toast: null,
 
   toggleSidebar: () => set((s) => ({ sidebarOpen: !s.sidebarOpen })),
+  setSidebarOpen: (sidebarOpen) => set({ sidebarOpen }),
   setDetailPanel: (open) => set({ detailPanelOpen: open }),
   toggleQueuePanel: () => set((s) => ({ queuePanelOpen: !s.queuePanelOpen })),
   setQueuePanelOpen: (queuePanelOpen) => set({ queuePanelOpen }),

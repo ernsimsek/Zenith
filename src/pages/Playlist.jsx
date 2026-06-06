@@ -128,7 +128,7 @@ export default function PlaylistPage() {
                 Play
               </button>
             </div>
-            <div className="grid grid-cols-[32px_40px_1fr_1fr_80px_28px] items-center gap-4 border-b border-white/5 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-faint">
+            <div className="hidden items-center gap-4 border-b border-white/5 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-faint sm:grid sm:grid-cols-[32px_40px_1fr_1fr_56px_28px]">
               <span>#</span>
               <span />
               <span>Title</span>

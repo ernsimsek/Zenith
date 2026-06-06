@@ -55,14 +55,14 @@ export default function LibraryPage() {
 
       <motion.div
         variants={pageItem}
-        className="mb-8 flex items-center gap-2 border-b border-white/5"
+        className="scroll-hide -mx-4 mb-8 flex items-center gap-1 overflow-x-auto border-b border-white/5 px-4 sm:-mx-0 sm:gap-2 sm:px-0"
       >
         {TABS.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setLibraryTab(tab.id)}
             className={clsx(
-              'relative px-4 py-3 font-heading text-sm font-medium transition-colors',
+              'relative shrink-0 px-3 py-3 font-heading text-sm font-medium transition-colors sm:px-4',
               activeTab === tab.id ? 'text-ink' : 'text-ink-muted hover:text-ink'
             )}
           >
@@ -109,7 +109,7 @@ function SongsTab({ loading, tracks, onPlay }) {
   }
   return (
     <div className="flex flex-col gap-0.5">
-      <div className="grid grid-cols-[28px_36px_minmax(0,1.15fr)_minmax(0,0.9fr)_minmax(0,1.05fr)_52px_28px] items-center gap-3 border-b border-white/5 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-faint sm:grid-cols-[32px_40px_minmax(0,1.15fr)_minmax(0,0.95fr)_minmax(0,1.05fr)_56px_28px] sm:gap-4">
+      <div className="hidden items-center gap-4 border-b border-white/5 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-faint sm:grid sm:grid-cols-[28px_36px_minmax(0,1.15fr)_minmax(0,0.9fr)_52px_28px] md:grid-cols-[32px_40px_minmax(0,1.15fr)_minmax(0,0.95fr)_minmax(0,1.05fr)_56px_28px]">
         <span>#</span>
         <span />
         <span>Title</span>

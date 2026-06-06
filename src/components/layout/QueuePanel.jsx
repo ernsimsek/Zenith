@@ -45,7 +45,7 @@ export default function QueuePanel() {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed bottom-0 right-0 top-16 z-[120] flex w-full max-w-md flex-col border-l border-white/10 bg-deep/95 shadow-2xl backdrop-blur-xl"
+            className="fixed bottom-[5.75rem] right-0 top-14 z-[120] flex w-full flex-col border-l border-white/10 bg-deep/95 shadow-2xl backdrop-blur-xl sm:top-16 md:bottom-0 md:max-w-md"
           >
             <div className="flex items-center justify-between border-b border-white/5 px-5 py-4">
               <div>

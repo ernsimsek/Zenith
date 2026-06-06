@@ -54,7 +54,7 @@ export default function Home() {
               <p className="font-mono text-xs uppercase tracking-[0.4em] text-accent">
                 {greeting()}, {displayName}
               </p>
-              <h1 className="mt-4 font-display text-5xl font-semibold leading-[1.05] text-ink sm:text-6xl md:text-7xl">
+              <h1 className="mt-4 font-display text-4xl font-semibold leading-[1.05] text-ink sm:text-5xl md:text-6xl lg:text-7xl">
                 Your music.{' '}
                 <span className="text-gradient-accent">Elevated.</span>
               </h1>
@@ -193,7 +193,7 @@ export default function Home() {
 function HScroll({ children, gap = 20 }) {
   return (
     <div
-      className="scroll-hide -mx-6 flex overflow-x-auto px-6 pb-2"
+      className="scroll-hide -mx-4 flex overflow-x-auto px-4 pb-2 sm:-mx-6 sm:px-6"
       style={{ gap, scrollSnapType: 'x proximity' }}
     >
       {children}

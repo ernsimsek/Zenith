@@ -25,10 +25,10 @@ export default function TrackRow({ index, track, onPlay, variant = 'stacked' }) 
     <div
       onDoubleClick={() => hasPreview && onPlay?.()}
       className={clsx(
-        'group relative grid items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors sm:gap-4',
+        'group relative grid items-center gap-2 rounded-lg px-2 py-2 text-sm transition-colors sm:gap-4 sm:px-3',
         split
-          ? 'grid-cols-[28px_36px_minmax(0,1.15fr)_minmax(0,0.9fr)_minmax(0,1.05fr)_52px_28px] sm:grid-cols-[32px_40px_minmax(0,1.15fr)_minmax(0,0.95fr)_minmax(0,1.05fr)_56px_28px]'
-          : 'grid-cols-[32px_40px_1fr_1fr_80px_28px]',
+          ? 'grid-cols-[24px_36px_minmax(0,1fr)_44px] sm:grid-cols-[28px_36px_minmax(0,1.15fr)_minmax(0,0.9fr)_52px_28px] md:grid-cols-[32px_40px_minmax(0,1.15fr)_minmax(0,0.95fr)_minmax(0,1.05fr)_56px_28px]'
+          : 'grid-cols-[24px_36px_minmax(0,1fr)_44px] sm:grid-cols-[32px_40px_1fr_1fr_56px_28px]',
         isCurrent ? 'bg-elevated/40' : 'hover:bg-elevated/30',
         !hasPreview && 'opacity-60'
       )}
@@ -64,10 +64,10 @@ export default function TrackRow({ index, track, onPlay, variant = 'stacked' }) 
         <img
           src={track.album.image}
           alt=""
-          className="h-10 w-10 rounded object-cover"
+          className="h-9 w-9 rounded object-cover sm:h-10 sm:w-10"
         />
       ) : (
-        <div className="h-10 w-10 rounded bg-elevated" />
+        <div className="h-9 w-9 rounded bg-elevated sm:h-10 sm:w-10" />
       )}
 
       {split ? (
@@ -76,9 +76,10 @@ export default function TrackRow({ index, track, onPlay, variant = 'stacked' }) 
             <p className={clsx('truncate font-medium', isCurrent ? 'text-accent' : 'text-ink')}>
               {track.title}
             </p>
+            <p className="truncate text-xs text-ink-muted sm:hidden">{track.artistName}</p>
           </div>
-          <p className="min-w-0 truncate text-xs text-ink-muted">{track.artistName}</p>
-          <p className="min-w-0 truncate text-xs text-ink-muted">{track.album?.name || '—'}</p>
+          <p className="hidden min-w-0 truncate text-xs text-ink-muted sm:block">{track.artistName}</p>
+          <p className="hidden min-w-0 truncate text-xs text-ink-muted md:block">{track.album?.name || '—'}</p>
         </>
       ) : (
         <>
@@ -88,7 +89,7 @@ export default function TrackRow({ index, track, onPlay, variant = 'stacked' }) 
             </p>
             <p className="truncate text-xs text-ink-muted">{track.artistName}</p>
           </div>
-          <p className="truncate text-xs text-ink-muted">{track.album?.name || ''}</p>
+          <p className="hidden truncate text-xs text-ink-muted sm:block">{track.album?.name || ''}</p>
         </>
       )}
 
@@ -99,7 +100,7 @@ export default function TrackRow({ index, track, onPlay, variant = 'stacked' }) 
       <button
         onClick={() => toggleFavorite(track)}
         className={clsx(
-          'rounded p-1 transition-colors',
+          'hidden rounded p-1 transition-colors sm:block',
           liked ? 'text-accent' : 'text-ink-faint opacity-0 group-hover:opacity-100 hover:text-ink'
         )}
         title={liked ? 'Unlike' : 'Like'}

@@ -61,11 +61,13 @@ export default function PlayerBar() {
   };
 
   return (
-    <footer className="relative z-30 flex h-22 flex-shrink-0 items-center gap-4 border-t border-white/5 bg-deep/90 px-4 py-3 backdrop-blur-md" style={{ height: 88 }}>
+    <footer
+      className="player-bar relative z-30 flex flex-shrink-0 flex-col gap-2 border-t border-white/5 bg-deep/90 px-3 py-2 backdrop-blur-md safe-bottom md:h-[88px] md:flex-row md:items-center md:gap-4 md:px-4 md:py-3"
+    >
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent" />
 
-      {/* Left: now playing */}
-      <div className="flex min-w-0 flex-1 items-center gap-3 md:w-80 md:flex-none">
+      {/* Row 1 mobile / Left desktop: now playing */}
+      <div className="flex min-w-0 flex-1 items-center gap-2.5 md:w-80 md:flex-none md:gap-3">
         {track?.album?.image ? (
           <motion.img
             key={track.album.image}
@@ -74,20 +76,85 @@ export default function PlayerBar() {
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
             src={track.album.image}
             alt={track.album.name}
-            className="h-14 w-14 rounded-md object-cover shadow-lg"
+            className="h-11 w-11 shrink-0 rounded-md object-cover shadow-lg md:h-14 md:w-14"
           />
         ) : (
-          <div className="h-14 w-14 rounded-md bg-gradient-to-br from-elevated to-surface" />
+          <div className="h-11 w-11 shrink-0 rounded-md bg-gradient-to-br from-elevated to-surface md:h-14 md:w-14" />
         )}
         <div className="min-w-0 flex-1">
           <MarqueeText text={track?.title || '—'} className="text-sm font-medium text-ink" />
           <p className="truncate text-xs text-ink-muted">{track?.artistName || 'Nothing playing'}</p>
         </div>
-        <LikeButton liked={liked} onClick={handleLike} disabled={!track} />
+        <LikeButton liked={liked} onClick={handleLike} disabled={!track} className="md:hidden" />
+        <div className="flex shrink-0 items-center gap-1 md:hidden">
+          <button
+            onClick={prev}
+            disabled={!track}
+            className="p-2 text-ink-muted transition-colors hover:text-ink disabled:opacity-40"
+            title="Previous"
+          >
+            <SkipBack size={18} />
+          </button>
+          <motion.button
+            onClick={togglePlay}
+            disabled={disabled}
+            whileTap={{ scale: 0.94 }}
+            className={clsx(
+              'grid h-10 w-10 place-items-center rounded-full transition-all',
+              disabled
+                ? 'cursor-not-allowed bg-elevated text-ink-faint'
+                : 'bg-accent text-void shadow-glow'
+            )}
+            title={isPlaying ? 'Pause' : 'Play'}
+          >
+            <PlayIcon playing={isPlaying} size={16} />
+          </motion.button>
+          <button
+            onClick={next}
+            disabled={!track}
+            className="p-2 text-ink-muted transition-colors hover:text-ink disabled:opacity-40"
+            title="Next"
+          >
+            <SkipForward size={18} />
+          </button>
+        </div>
+        <button
+          type="button"
+          onClick={toggleQueuePanel}
+          className={clsx(
+            'rounded p-2 transition-colors md:hidden',
+            queuePanelOpen ? 'text-accent' : 'text-ink-muted hover:text-ink'
+          )}
+          title="Queue"
+        >
+          <ListMusic size={16} />
+        </button>
+        <button
+          type="button"
+          onClick={toggleCinematic}
+          disabled={!track}
+          className={clsx(
+            'rounded p-2 transition-colors disabled:opacity-40 md:hidden',
+            cinematicOpen ? 'text-accent' : 'text-ink-muted hover:text-ink'
+          )}
+          title={cinematicOpen ? 'Exit cinematic mode' : 'Cinematic mode'}
+        >
+          {cinematicOpen ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
+        </button>
       </div>
 
-      {/* Middle: transport */}
-      <div className="flex flex-[2] flex-col items-center gap-2">
+      {/* Scrubber — full width on mobile */}
+      <div className="w-full md:hidden">
+        <WaveformScrubber
+          progress={progress}
+          duration={duration}
+          onSeek={handleSeek}
+          disabled={disabled}
+        />
+      </div>
+
+      {/* Middle: transport (desktop) */}
+      <div className="hidden min-w-0 flex-[2] flex-col items-center gap-2 md:flex">
         <div className="flex items-center gap-5">
           <button
             onClick={cycleShuffle}
@@ -148,8 +215,9 @@ export default function PlayerBar() {
         />
       </div>
 
-      {/* Right: extras */}
+      {/* Right: extras (desktop) */}
       <div className="hidden min-w-0 flex-1 items-center justify-end gap-2 md:flex md:w-80 md:flex-none">
+        <LikeButton liked={liked} onClick={handleLike} disabled={!track} />
         <FrequencyBars active={isPlaying} className="h-8 w-24 opacity-80" />
         <button
           type="button"
@@ -208,7 +276,7 @@ function MarqueeText({ text, className = '' }) {
   );
 }
 
-function LikeButton({ liked, onClick, disabled }) {
+function LikeButton({ liked, onClick, disabled, className = '' }) {
   return (
     <motion.button
       onClick={onClick}
@@ -216,8 +284,9 @@ function LikeButton({ liked, onClick, disabled }) {
       whileTap={{ scale: 1.3 }}
       transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
       className={clsx(
-        'relative rounded p-2 transition-colors disabled:opacity-40',
-        liked ? 'text-accent' : 'text-ink-muted hover:text-ink'
+        'relative shrink-0 rounded p-2 transition-colors disabled:opacity-40',
+        liked ? 'text-accent' : 'text-ink-muted hover:text-ink',
+        className
       )}
       title={liked ? 'Unlike' : 'Like'}
     >
@@ -237,4 +306,3 @@ function LikeButton({ liked, onClick, disabled }) {
     </motion.button>
   );
 }
-

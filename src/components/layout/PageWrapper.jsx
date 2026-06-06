@@ -20,7 +20,7 @@ export default function PageWrapper({ children, className = '' }) {
       variants={variants}
       initial="hidden"
       animate="show"
-      className={`relative mx-auto w-full max-w-7xl px-6 py-8 ${className}`}
+      className={`relative mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 sm:py-8 ${className}`}
     >
       {children}
     </motion.div>

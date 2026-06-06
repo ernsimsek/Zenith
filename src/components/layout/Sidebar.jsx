@@ -1,7 +1,10 @@
-import { NavLink, Link } from 'react-router-dom';
-import { Home, Library, Compass, Search, Settings, Heart } from 'lucide-react';
+import { useEffect } from 'react';
+import { NavLink, Link, useLocation } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Home, Library, Compass, Search, Settings, Heart, X } from 'lucide-react';
 import clsx from 'clsx';
 import { useLibraryStore } from '../../store/libraryStore.js';
+import { useUiStore } from '../../store/uiStore.js';
 
 const NAV = [
   { to: '/', label: 'Home', icon: Home, end: true },
@@ -12,12 +15,12 @@ const NAV = [
   { to: '/settings', label: 'Settings', icon: Settings },
 ];
 
-export default function Sidebar() {
+function SidebarContent({ onNavigate }) {
   const playlists = useLibraryStore((s) => s.userPlaylists);
 
   return (
-    <aside className="relative flex h-full w-60 flex-col border-r border-white/5 bg-deep/60">
-      <div className="px-6 pb-4 pt-6">
+    <>
+      <div className="flex items-center justify-between px-5 pb-4 pt-6 lg:px-6">
         <div className="flex items-center gap-3">
           <div className="grid h-9 w-9 place-items-center rounded-lg bg-gradient-to-br from-accent to-pulse shadow-glow">
             <span className="font-display text-xl font-bold text-void">Z</span>
@@ -29,17 +32,26 @@ export default function Sidebar() {
             </p>
           </div>
         </div>
+        <button
+          type="button"
+          onClick={onNavigate}
+          className="rounded-lg p-2 text-ink-muted transition-colors hover:bg-elevated/60 hover:text-ink lg:hidden"
+          aria-label="Close menu"
+        >
+          <X size={20} />
+        </button>
       </div>
 
-      <nav className="mt-4 flex flex-col gap-1 px-3">
+      <nav className="mt-2 flex flex-col gap-1 px-3">
         {NAV.map(({ to, label, icon: Icon, end }) => (
           <NavLink
             key={to}
             to={to}
             end={end}
+            onClick={onNavigate}
             className={({ isActive }) =>
               clsx(
-                'group relative flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-all duration-300 ease-zenith',
+                'group relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-all duration-300 ease-zenith lg:py-2',
                 isActive
                   ? 'bg-elevated/60 text-ink'
                   : 'text-ink-muted hover:bg-elevated/30 hover:pl-4 hover:text-ink'
@@ -77,6 +89,7 @@ export default function Sidebar() {
               <li key={p.id}>
                 <Link
                   to={`/playlist/${p.id}`}
+                  onClick={onNavigate}
                   className="block w-full truncate rounded px-3 py-1.5 text-left text-sm text-ink-muted transition-colors hover:text-ink"
                   title={p.name}
                 >
@@ -102,6 +115,58 @@ export default function Sidebar() {
         </a>
         · CC catalog
       </p>
-    </aside>
+    </>
+  );
+}
+
+export default function Sidebar() {
+  const sidebarOpen = useUiStore((s) => s.sidebarOpen);
+  const setSidebarOpen = useUiStore((s) => s.setSidebarOpen);
+  const location = useLocation();
+
+  const close = () => setSidebarOpen(false);
+
+  useEffect(() => {
+    setSidebarOpen(false);
+  }, [location.pathname, setSidebarOpen]);
+
+  useEffect(() => {
+    if (!sidebarOpen) return undefined;
+    document.body.classList.add('overflow-hidden');
+    return () => document.body.classList.remove('overflow-hidden');
+  }, [sidebarOpen]);
+
+  return (
+    <>
+      <aside className="relative hidden h-full w-60 shrink-0 flex-col border-r border-white/5 bg-deep/60 lg:flex">
+        <SidebarContent onNavigate={() => {}} />
+      </aside>
+
+      <AnimatePresence>
+        {sidebarOpen && (
+          <>
+            <motion.button
+              type="button"
+              aria-label="Close menu"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              className="fixed inset-0 z-[90] bg-void/70 backdrop-blur-sm lg:hidden"
+              onClick={close}
+            />
+            <motion.aside
+              initial={{ x: '-100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '-100%' }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="fixed bottom-0 left-0 top-0 z-[95] flex w-[min(85vw,18rem)] flex-col border-r border-white/10 bg-deep/95 shadow-2xl backdrop-blur-xl lg:hidden"
+            >
+              <SidebarContent onNavigate={close} />
+            </motion.aside>
+          </>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
